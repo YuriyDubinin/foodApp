@@ -1,0 +1,18 @@
+.hide {
+    display: none;
+}
+.show {
+    display: block;
+}
+.fade {
+    animation: fade 1s ease 0s;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0.1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
