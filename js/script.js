@@ -102,26 +102,37 @@ document.addEventListener("DOMContentLoaded", () => {
     //variables
     const contactBtns = document.querySelectorAll("[data-modal]"),
         modalWindow = document.querySelector(".modal"),
-        closeIcon = document.querySelector(".modal__close");
+        closeModalBtn = document.querySelector("[data-close]");
 
-    //function
-    function openModalWindow() {
-        contactBtns.forEach((item) => {
-            item.addEventListener("click", (event) => {
-                modalWindow.classList.add("show");
-                modalWindow.classList.remove("hide");
-            });
-        });
-    }
-
+    //functions
     function closeModalWindow() {
-        closeIcon.addEventListener("click", (event) => {
-            modalWindow.classList.add("hide");
-            modalWindow.classList.remove("show");
-        });
+        modalWindow.classList.add("hide");
+        modalWindow.classList.remove("show");
+        document.body.style.overflow = "";
     }
 
     //execution
-    openModalWindow();
-    closeModalWindow();
+    contactBtns.forEach((item) => {
+        item.addEventListener("click", (event) => {
+            modalWindow.classList.add("show");
+            modalWindow.classList.remove("hide");
+            document.body.style.overflow = "hidden";
+        });
+    });
+
+    closeModalBtn.addEventListener("click", () => {
+        closeModalWindow();
+    });
+
+    modalWindow.addEventListener("click", (e) => {
+        if (e.target === modalWindow) {
+            closeModalWindow();
+        }
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.code === "Escape" && modalWindow.classList.contains("show")) {
+            closeModalWindow();
+        }
+    });
 });
