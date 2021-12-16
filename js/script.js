@@ -2,7 +2,6 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     /* tabs */
-
     //variables
     const tabs = document.querySelectorAll(".tabheader__item"),
         tabsContent = document.querySelectorAll(".tabcontent"),
@@ -44,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
     showTabContent();
 
     /* timer */
-
     //variables
     const deadLine = "2021-12-31";
 
@@ -99,4 +97,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //execution
     setClock(".timer", deadLine);
+
+    /* modal window */
+    //variables
+    const contactBtns = document.querySelectorAll("[data-modal]"),
+        modalWindow = document.querySelector(".modal"),
+        closeIcon = document.querySelector(".modal__close");
+
+    //function
+    function openModalWindow() {
+        contactBtns.forEach((item) => {
+            item.addEventListener("click", (event) => {
+                modalWindow.classList.add("show");
+                modalWindow.classList.remove("hide");
+            });
+        });
+    }
+
+    function closeModalWindow() {
+        closeIcon.addEventListener("click", (event) => {
+            modalWindow.classList.add("hide");
+            modalWindow.classList.remove("show");
+        });
+    }
+
+    //execution
+    openModalWindow();
+    closeModalWindow();
 });
