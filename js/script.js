@@ -151,4 +151,65 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.addEventListener("scroll", showModalByScroll);
+
+    /* cards */
+    //variables
+    const cardsStructure = document.querySelector("#cards"),
+        cardList = document.querySelectorAll(".menu__item");
+
+    class Card {
+        constructor(imgPath, subtitle, description, price) {
+            this.imgPath = imgPath;
+            this.subtitle = subtitle;
+            this.description = description;
+            this.price = price;
+        }
+
+        createCard() {
+            //creating new card and push it into shared collection
+            let newCard = document.createElement("div");
+            newCard.classList.add("menu__item");
+
+            //creating HTML structure
+            newCard.innerHTML = `
+                        <img src="${this.imgPath}" alt="card picture" />
+                        <h3 class="menu__item-subtitle">${this.subtitle}</h3>
+                        <div class="menu__item-descr">
+                            ${this.description}
+                        </div>
+                        <div class="menu__item-divider"></div>
+                        <div class="menu__item-price">
+                            <div class="menu__item-cost">Цена:</div>
+                            <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+                        
+                    </div>`;
+
+            //push new card in cards menu
+            cardsStructure.appendChild(newCard);
+        }
+    }
+
+    //execution
+
+    //add seaCard
+    const seaCard = new Card(
+        "img/tabs/sea_menu.jpg",
+        'Меню "Средиземноморское"',
+        "Изысканные и лёгкие композиции из красной рыбы, сливочного сыра, капперсовб вяленых помидоров, королевских креветок, мидий, устриц, рапанов. Коктейли вкуса для настоящего гурмана.",
+        "480"
+    );
+    seaCard.createCard();
+
+    cardList[0].style.display = "none";
+
+    // //add burgers
+    const burgerCard = new Card(
+        "img/tabs/hamburger.jpg",
+        'Меню "Бургер"',
+        "Для тех кто более лоялен, для настоящих любителей всего и сейчас - первоклассные бургеры наполненые сочнейшими ингредиентами! Соусы, BBQ, первоклассное мясо - все это здесь.",
+        "450"
+    );
+    burgerCard.createCard();
+
+    cardList[1].style.display = "none";
 });
