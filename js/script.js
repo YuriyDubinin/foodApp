@@ -102,15 +102,15 @@ document.addEventListener("DOMContentLoaded", () => {
     //variables
     const contactBtns = document.querySelectorAll("[data-modal]"),
         modalWindow = document.querySelector(".modal"),
-        closeModalBtn = document.querySelector("[data-close]"),
-        modalTimerId = setTimeout(openModalWinndow, 5000);
+        closeModalBtn = document.querySelector("[data-close]");
+    // modalTimerId = setTimeout(openModalWinndow, 5000);
 
     //functions
     function openModalWinndow() {
         modalWindow.classList.add("show");
         modalWindow.classList.remove("hide");
         document.body.style.overflow = "hidden";
-        clearInterval(modalTimerId);
+        // clearInterval(modalTimerId);
     }
 
     function closeModalWindow() {
@@ -152,64 +152,74 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("scroll", showModalByScroll);
 
-    /* cards */
+    /* cards, in this block we are uses classes */
     //variables
-    const cardsStructure = document.querySelector("#cards"),
-        cardList = document.querySelectorAll(".menu__item");
-
-    class Card {
-        constructor(imgPath, subtitle, description, price) {
-            this.imgPath = imgPath;
-            this.subtitle = subtitle;
+    class MenuCard {
+        constructor(src, alt, title, description, price, parentSelector) {
+            this.src = src;
+            this.alt = alt;
+            this.title = title;
             this.description = description;
             this.price = price;
+            this.parent = document.querySelector(parentSelector);
+            this.transfer = 27;
+            this.changeToUAH();
         }
 
-        createCard() {
-            //creating new card and push it into shared collection
-            let newCard = document.createElement("div");
-            newCard.classList.add("menu__item");
+        changeToUAH() {
+            //converting dollars to UAH
+            this.price = this.price * this.transfer;
+        }
 
-            //creating HTML structure
-            newCard.innerHTML = `
-                        <img src="${this.imgPath}" alt="card picture" />
-                        <h3 class="menu__item-subtitle">${this.subtitle}</h3>
-                        <div class="menu__item-descr">
-                            ${this.description}
-                        </div>
-                        <div class="menu__item-divider"></div>
-                        <div class="menu__item-price">
-                            <div class="menu__item-cost">Цена:</div>
-                            <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
-                        
-                    </div>`;
+        render() {
+            //create HTML structure of the card
+            const element = document.createElement("div");
+            element.classList.add("menu__item");
+            element.innerHTML = `
+            <img src=${this.src} alt=${this.alt} />
+            <h3 class="menu__item-subtitle">${this.title}</h3>
+            <div class="menu__item-descr">
+                ${this.description}
+            </div>
+            <div class="menu__item-divider"></div>
+            <div class="menu__item-price">
+                <div class="menu__item-cost">Цена:</div>
+                <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+            </div>`;
 
-            //push new card in cards menu
-            cardsStructure.appendChild(newCard);
+            //push card to the rest
+            this.parent.append(element);
         }
     }
 
     //execution
+    //add Fitness card
+    new MenuCard(
+        "img/tabs/vegy.jpg",
+        "vegy",
+        'Меню "Фитнес"',
+        'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
+        9,
+        ".menu .container"
+    ).render();
 
-    //add seaCard
-    const seaCard = new Card(
-        "img/tabs/sea_menu.jpg",
-        'Меню "Средиземноморское"',
-        "Изысканные и лёгкие композиции из красной рыбы, сливочного сыра, капперсовб вяленых помидоров, королевских креветок, мидий, устриц, рапанов. Коктейли вкуса для настоящего гурмана.",
-        "480"
-    );
-    seaCard.createCard();
+    //add Premium card
+    new MenuCard(
+        "img/tabs/elite.jpg",
+        "vegy",
+        'Меню "Премиум"',
+        "В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!",
+        21,
+        ".menu .container"
+    ).render();
 
-    cardList[0].style.display = "none";
-
-    // //add burgers
-    const burgerCard = new Card(
-        "img/tabs/hamburger.jpg",
-        'Меню "Бургер"',
-        "Для тех кто более лоялен, для настоящих любителей всего и сейчас - первоклассные бургеры наполненые сочнейшими ингредиентами! Соусы, BBQ, первоклассное мясо - все это здесь.",
-        "450"
-    );
-    burgerCard.createCard();
-
-    cardList[1].style.display = "none";
+    //add Lenten card
+    new MenuCard(
+        "img/tabs/vegy.jpg",
+        "vegy",
+        'Меню "Постное"',
+        "Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.",
+        16,
+        ".menu .container"
+    ).render();
 });
