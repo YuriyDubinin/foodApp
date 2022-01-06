@@ -2,7 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     /* tabs */
-    //variables
+    //declaration
     const tabs = document.querySelectorAll(".tabheader__item"),
         tabsContent = document.querySelectorAll(".tabcontent"),
         tabsParent = document.querySelector(".tabheader__items");
@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    //functions
     function hideTabContent() {
         tabsContent.forEach((item) => {
             item.classList.add("hide");
@@ -43,10 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
     showTabContent();
 
     /* timer */
-    //variables
-    const deadLine = "2021-12-31";
+    //declaration
+    const deadLine = "2022-04-01";
 
-    //functions
+    //add zero to number
     function getZero(num) {
         if (num >= 0 && num < 10) {
             return `0${num}`;
@@ -55,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    //calculates the remaining time
     function getTimeRemaining(endtime) {
         const t = Date.parse(endtime) - Date.parse(new Date()),
             days = Math.floor(t / (1000 * 60 * 60 * 24)),
@@ -99,13 +99,12 @@ document.addEventListener("DOMContentLoaded", () => {
     setClock(".timer", deadLine);
 
     /* modal window */
-    //variables
+    //declaration
     const contactBtns = document.querySelectorAll("[data-modal]"),
         modalWindow = document.querySelector(".modal"),
         closeModalBtn = document.querySelector("[data-close]");
     // modalTimerId = setTimeout(openModalWinndow, 5000);
 
-    //functions
     function openModalWinndow() {
         modalWindow.classList.add("show");
         modalWindow.classList.remove("hide");
@@ -153,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", showModalByScroll);
 
     /* cards, in this block we are uses classes */
-    //variables
+    //declaration
     class MenuCard {
         constructor(src, alt, title, description, price, parentSelector, ...classes) {
             this.src = src;
@@ -214,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //add Premium card
     new MenuCard(
         "img/tabs/elite.jpg",
-        "vegy",
+        "elite",
         'Меню "Премиум"',
         "В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!",
         21,
@@ -224,12 +223,159 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //add Lenten card
     new MenuCard(
-        "img/tabs/vegy.jpg",
-        "vegy",
+        "img/tabs/post.jpg",
+        "lenten",
         'Меню "Постное"',
         "Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.",
         16,
         ".menu .container",
         "menu__item"
     ).render();
+
+    //add Hamburger card
+    new MenuCard(
+        "img/tabs/hamburger.jpg",
+        "hamburger",
+        'Меню "Бургеры"',
+        "Меню “Бургеры” - для настоящих ценителей мяса, для тех кто знает как сочетать все что нужно, и того ктоживет в гармонии с собой зная что все хорошо в меру. Отборная телятина, вкусный сыр и хрустяие ломтики зелени - просто объедение.",
+        16,
+        ".menu .container",
+        "menu__item"
+    ).render();
+
+    //add Sea card
+    new MenuCard(
+        "img/tabs/sea_menu.jpg",
+        "sea_menu",
+        'Меню "Средиземноморское"',
+        "В “Средиземноморском” меню собраны настоящие деликатесы собранные с самых дальных уголков водного мира. Королевские креветки, мидии, устрицы, рапаны, красная рыба и многое другое не оставят вас равнодушными.",
+        16,
+        ".menu .container",
+        "menu__item"
+    ).render();
+
+    //add Pizza card
+    new MenuCard(
+        "img/tabs/pizza.jpg",
+        "pizza",
+        'Меню "Пицца"',
+        "Что тут скажешь? Говорят чтобы вкусить все прелести конкретной кухни надо для начала попробовать Маргариту, но в нашем меню можно пробовать что угодно, каждый кусочек пропитан классическим вкусом для настоящих ценителей.",
+        16,
+        ".menu .container",
+        "menu__item"
+    ).render();
+
+    /* replaces content of menu of the day */
+    //declaration
+    const menuItems = document.querySelectorAll(".menu__item");
+    const switchTimer = setInterval(switchContentOfMenuOfTheDay, 15000);
+
+    //function to replace content for the menu of the day
+    function switchContentOfMenuOfTheDay() {
+        if (
+            menuItems[0].classList.contains("show") &&
+            menuItems[1].classList.contains("show") &&
+            menuItems[2].classList.contains("show")
+        ) {
+            menuItems[0].classList.remove("show", "fade");
+            menuItems[1].classList.remove("show", "fade");
+            menuItems[2].classList.remove("show", "fade");
+            menuItems[0].classList.add("hide");
+            menuItems[1].classList.add("hide");
+            menuItems[2].classList.add("hide");
+
+            menuItems[3].classList.remove("hide");
+            menuItems[4].classList.remove("hide");
+            menuItems[5].classList.remove("hide");
+            menuItems[3].classList.add("show", "fade");
+            menuItems[4].classList.add("show", "fade");
+            menuItems[5].classList.add("show", "fade");
+        } else {
+            menuItems[0].classList.remove("hide");
+            menuItems[1].classList.remove("hide");
+            menuItems[2].classList.remove("hide");
+            menuItems[0].classList.add("show", "fade");
+            menuItems[1].classList.add("show", "fade");
+            menuItems[2].classList.add("show", "fade");
+
+            menuItems[3].classList.remove("show", "fade");
+            menuItems[4].classList.remove("show", "fade");
+            menuItems[5].classList.remove("show", "fade");
+            menuItems[3].classList.add("hide");
+            menuItems[4].classList.add("hide");
+            menuItems[5].classList.add("hide");
+        }
+    }
+
+    //execution
+    //content initial position
+    menuItems[0].classList.add("show", "fade");
+    menuItems[1].classList.add("show", "fade");
+    menuItems[2].classList.add("show", "fade");
+    menuItems[3].classList.add("hide");
+    menuItems[4].classList.add("hide");
+    menuItems[5].classList.add("hide");
+
+    /* forms */
+    //declaration
+    const forms = document.querySelectorAll("form");
+    const message = {
+        loading: "Загрузка..",
+        success: "Успешно! Скоро мы с вами свяжемся!",
+        failure: "Что-то пошло не так..",
+    };
+
+    //sending data from the form to the server
+    function postData(form) {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            //creating message-block
+            const statusMessage = document.createElement("div");
+            statusMessage.classList.add("status");
+            statusMessage.textContent = message.loading;
+            form.append(statusMessage);
+
+            const request = new XMLHttpRequest();
+            const formData = new FormData(form);
+
+            request.open("POST", "server.php");
+
+            //for FormData setRequestHeader not needed
+            // request.setRequestHeader("Content-type", "multypart/form-data");
+
+            //for JSON
+            request.setRequestHeader("Content-type", "application/json");
+
+            //converting FormData to JSON
+            const object = {};
+            formData.forEach((value, key) => {
+                object[key] = value;
+            });
+
+            const json = JSON.stringify(object);
+
+            request.send(json);
+
+            request.addEventListener("load", () => {
+                if (request.status === 200) {
+                    console.log(request.response);
+                    statusMessage.textContent = message.success;
+
+                    //clear the form
+                    form.reset();
+                    setTimeout(() => {
+                        statusMessage.remove();
+                    }, 3000);
+                } else {
+                    statusMessage.textContent = message.failure;
+                }
+            });
+        });
+    }
+
+    //execution
+    forms.forEach((item) => {
+        postData(item);
+    });
 });
