@@ -102,14 +102,13 @@ document.addEventListener("DOMContentLoaded", () => {
     //declaration
     const contactBtns = document.querySelectorAll("[data-modal]"),
         modalWindow = document.querySelector(".modal"),
-        closeModalBtn = document.querySelector("[data-close]");
-    // modalTimerId = setTimeout(openModalWinndow, 5000);
+        modalTimerId = setTimeout(openModalWinndow, 300000);
 
     function openModalWinndow() {
         modalWindow.classList.add("show");
         modalWindow.classList.remove("hide");
         document.body.style.overflow = "hidden";
-        // clearInterval(modalTimerId);
+        clearInterval(modalTimerId);
     }
 
     function closeModalWindow() {
@@ -133,12 +132,8 @@ document.addEventListener("DOMContentLoaded", () => {
         item.addEventListener("click", openModalWinndow);
     });
 
-    closeModalBtn.addEventListener("click", () => {
-        closeModalWindow();
-    });
-
     modalWindow.addEventListener("click", (e) => {
-        if (e.target === modalWindow) {
+        if (e.target === modalWindow || e.target.getAttribute("data-close") === "") {
             closeModalWindow();
         }
     });
@@ -320,7 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //declaration
     const forms = document.querySelectorAll("form");
     const message = {
-        loading: "Загрузка..",
+        loading: "img/form/spinner.svg",
         success: "Успешно! Скоро мы с вами свяжемся!",
         failure: "Что-то пошло не так..",
     };
@@ -330,11 +325,15 @@ document.addEventListener("DOMContentLoaded", () => {
         form.addEventListener("submit", (e) => {
             e.preventDefault();
 
-            //creating message-block
-            const statusMessage = document.createElement("div");
-            statusMessage.classList.add("status");
-            statusMessage.textContent = message.loading;
-            form.append(statusMessage);
+            //creating message block
+            let statusMessage = document.createElement("img");
+            statusMessage.src = message.loading;
+            statusMessage.style.cssText = `
+                display: block;
+                margin: 0 auto;
+            `;
+
+            form.insertAdjacentElement("afterend", statusMessage);
 
             const request = new XMLHttpRequest();
             const formData = new FormData(form);
@@ -360,18 +359,40 @@ document.addEventListener("DOMContentLoaded", () => {
             request.addEventListener("load", () => {
                 if (request.status === 200) {
                     console.log(request.response);
-                    statusMessage.textContent = message.success;
-
+                    showThanksModal(message.success);
                     //clear the form
+                    statusMessage.remove();
                     form.reset();
-                    setTimeout(() => {
-                        statusMessage.remove();
-                    }, 3000);
                 } else {
-                    statusMessage.textContent = message.failure;
+                    showThanksModal(message.failure);
                 }
             });
         });
+    }
+
+    function showThanksModal(message) {
+        const prevModalDialog = document.querySelector(".modal__dialog");
+
+        prevModalDialog.classList.remove("show");
+        prevModalDialog.classList.add("hide");
+        openModalWinndow();
+
+        const thanksModal = document.createElement("div");
+        thanksModal.classList.add("modal__dialog");
+        thanksModal.innerHTML = `
+            <div class="modal__content">
+                <div class="modal__close" data-close>×</div>
+                <div class="modal__title">${message}</div>
+            </div>
+        `;
+
+        document.querySelector(".modal").append(thanksModal);
+        setTimeout(() => {
+            thanksModal.remove();
+            prevModalDialog.classList.add("show");
+            prevModalDialog.classList.remove("hide");
+            closeModalWindow();
+        }, 4000);
     }
 
     //execution
