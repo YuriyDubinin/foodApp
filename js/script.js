@@ -322,6 +322,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function showSlide(index) {
+        if (index > slides.length) {
+            //transition from the last slide to the first
+            slideIndex = 1;
+            index = 1;
+        } else if (index < 1) {
+            //transition from the first slide to the last
+            slideIndex = slides.length;
+            index = slides.length;
+        }
+
         //directly slide
         slides.forEach((slide) => {
             slide.classList.remove("show", "fade");
@@ -345,21 +355,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //slider buttons
     prevBtn.addEventListener("click", (event) => {
-        if (slideIndex === 1) {
-            slideIndex = slides.length;
-            showSlide(slideIndex);
-        } else {
-            slideIndex--;
-            showSlide(slideIndex);
-        }
+        slideIndex--;
+        showSlide(slideIndex);
     });
     nextBtn.addEventListener("click", (event) => {
-        if (slideIndex === slides.length) {
-            slideIndex = 1;
-            showSlide(slideIndex);
-        } else {
-            slideIndex++;
-            showSlide(slideIndex);
-        }
+        slideIndex++;
+        showSlide(slideIndex);
     });
 });
