@@ -325,11 +325,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (index > slides.length) {
             //transition from the last slide to the first
             slideIndex = 1;
-            index = 1;
         } else if (index < 1) {
             //transition from the first slide to the last
             slideIndex = slides.length;
-            index = slides.length;
         }
 
         //directly slide
@@ -338,8 +336,8 @@ document.addEventListener("DOMContentLoaded", () => {
             slide.classList.add("hide");
         });
 
-        slides[index - 1].classList.remove("hide");
-        slides[index - 1].classList.add("show", "fade");
+        slides[slideIndex - 1].classList.remove("hide");
+        slides[slideIndex - 1].classList.add("show", "fade");
 
         //numbering
         if (index < 10) {
