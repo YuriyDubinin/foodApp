@@ -305,13 +305,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* slider */
-    //declaration
-    let slideIndex = 1;
+    // declaration
+    let slideIndex = 1,
+        offset = 0;
+
     const slides = document.querySelectorAll(".offer__slide"),
         prevBtn = document.querySelector(".offer__slider-prev"),
         nextBtn = document.querySelector(".offer__slider-next"),
         currentSlide = document.querySelector("#current"),
-        totalSlides = document.querySelector("#total");
+        totalSlides = document.querySelector("#total"),
+        slidesWrapper = document.querySelector(".offer__slider-wrapper"),
+        slidesField = document.querySelector(".offer__slider-inner"),
+        width = window.getComputedStyle(slidesWrapper).width;
 
     function showTotalSlides() {
         if (slides.length < 10) {
@@ -321,7 +326,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function showSlide(index) {
+    function showCurrentSlide(index) {
         if (index > slides.length) {
             //transition from the last slide to the first
             slideIndex = 1;
@@ -330,16 +335,7 @@ document.addEventListener("DOMContentLoaded", () => {
             slideIndex = slides.length;
         }
 
-        //directly slide
-        slides.forEach((slide) => {
-            slide.classList.remove("show", "fade");
-            slide.classList.add("hide");
-        });
-
-        slides[slideIndex - 1].classList.remove("hide");
-        slides[slideIndex - 1].classList.add("show", "fade");
-
-        //numbering
+        //displaying
         if (index < 10) {
             currentSlide.textContent = `0${slideIndex}`;
         } else {
@@ -349,15 +345,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //execution
     showTotalSlides();
-    showSlide(slideIndex);
+    showCurrentSlide(slideIndex);
+
+    //hiding everything outside slidesWrapper
+    slidesWrapper.style.overflow = "hidden";
+
+    //setting the width based on the number of slides
+    slidesField.style.width = 100 * slides.length + `%`;
+
+    //line up slides, add smooth transition (added class to CSS)
+    // slidesField.style.display = "flex";
+    // slidesField.style.transition = "0.5s all";
+
+    //set a clear witdth for each slides
+    slides.forEach((slide) => {
+        slide.style.width = width;
+    });
 
     //slider buttons
-    prevBtn.addEventListener("click", (event) => {
-        slideIndex--;
-        showSlide(slideIndex);
-    });
-    nextBtn.addEventListener("click", (event) => {
+    nextBtn.addEventListener("click", () => {
         slideIndex++;
-        showSlide(slideIndex);
+        showCurrentSlide(slideIndex);
+
+        //check & changing indentation
+        if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)) {
+            //transition from the last slide to the first
+            offset = 0;
+        } else {
+            //move
+            offset += +width.slice(0, width.length - 2);
+        }
+
+        //sliderField motion
+        slidesField.style.transform = `translateX(-${offset}px)`;
+    });
+    prevBtn.addEventListener("click", () => {
+        slideIndex--;
+        showCurrentSlide(slideIndex);
+
+        //check & changing indentation
+        if (offset == 0) {
+            //transition from the first slide to the last
+            offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+        } else {
+            //move
+            offset -= +width.slice(0, width.length - 2);
+        }
+
+        //sliderField motion
+        slidesField.style.transform = `translateX(-${offset}px)`;
     });
 });
