@@ -348,11 +348,9 @@ document.addEventListener("DOMContentLoaded", () => {
     showTotalSlides();
     showCurrentSlide(slideIndex);
 
-    //hiding everything outside slidesWrapper
-    slidesWrapper.style.overflow = "hidden";
+    slidesWrapper.style.overflow = "hidden"; //hiding everything outside slidesWrapper
 
-    //setting the width based on the number of slides
-    slidesField.style.width = 100 * slides.length + `%`;
+    slidesField.style.width = 100 * slides.length + `%`; //setting the width based on the number of slides
 
     //line up slides, add smooth transition (added class to CSS)
     // slidesField.style.display = "flex";
@@ -373,7 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
             //transition from the last slide to the first
             offset = 0;
         } else {
-            //move
+            //normal movement
             offset += +width.slice(0, width.length - 2);
         }
 
@@ -389,7 +387,7 @@ document.addEventListener("DOMContentLoaded", () => {
             //transition from the first slide to the last
             offset = +width.slice(0, width.length - 2) * (slides.length - 1);
         } else {
-            //move
+            //normal movement
             offset -= +width.slice(0, width.length - 2);
         }
 
@@ -397,32 +395,53 @@ document.addEventListener("DOMContentLoaded", () => {
         slidesField.style.transform = `translateX(-${offset}px)`;
     });
 
-    //navigation
+    //slider navigation
+
     slider.style.position = `relative`;
 
-    //creating dots
-    const dots = document.createElement("div");
-    dots.classList.add("carousel-indicators");
-    slider.append(dots);
+    //creating indicators
+    const indicators = document.createElement("div");
 
-    //adding the required number of dots
+    indicators.classList.add("carousel-indicators");
+
+    slider.append(indicators);
+
+    //adding the required number of indicators
     for (let i = 0; i < slides.length; i++) {
-        const dot = document.createElement("div");
-        dot.classList.add("dot");
-        dot.setAttribute("data-number", +`${i + 1}`);
+        const indicator = document.createElement("div");
 
-        dots.append(dot);
+        indicator.classList.add("dot");
+        indicator.setAttribute("data-number", +`${i + 1}`);
+
+        indicators.append(indicator);
     }
 
-    dots.addEventListener("click", (event) => {
+    const dots = document.querySelectorAll(".dot");
+
+    //setting the initial active slide
+    dots[slideIndex - 1].style.opacity = "1"; //initial active indicator
+
+    offset = +width.slice(0, width.length - 2) * (slideIndex - 1); //indent adjustment
+
+    slidesField.style.transform = `translateX(-${offset}px)`; //initial slide
+
+    //interaction with indicators
+    indicators.addEventListener("click", (event) => {
         if (event.target && event.target.classList.contains("dot")) {
             slideIndex = event.target.getAttribute(["data-number"]);
             showCurrentSlide(slideIndex);
 
             //indent adjustment
             offset = +width.slice(0, width.length - 2) * (slideIndex - 1);
-            //move
+
+            //movement
             slidesField.style.transform = `translateX(-${offset}px)`;
+
+            //displaying active indicator
+            dots.forEach((dot, i) => {
+                dot.style.opacity = ".5";
+            });
+            dots[slideIndex - 1].style.opacity = "1";
         }
     });
 });
