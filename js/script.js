@@ -316,7 +316,8 @@ document.addEventListener("DOMContentLoaded", () => {
         totalSlides = document.querySelector("#total"),
         slidesWrapper = document.querySelector(".offer__slider-wrapper"),
         slidesField = document.querySelector(".offer__slider-inner"),
-        width = window.getComputedStyle(slidesWrapper).width;
+        width = window.getComputedStyle(slidesWrapper).width,
+        slider = document.querySelector(".offer__slider");
 
     function showTotalSlides() {
         if (slides.length < 10) {
@@ -394,5 +395,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
         //sliderField motion
         slidesField.style.transform = `translateX(-${offset}px)`;
+    });
+
+    //navigation
+    slider.style.position = `relative`;
+
+    //creating dots
+    const dots = document.createElement("div");
+    dots.classList.add("carousel-indicators");
+    slider.append(dots);
+
+    //adding the required number of dots
+    for (let i = 0; i < slides.length; i++) {
+        const dot = document.createElement("div");
+        dot.classList.add("dot");
+        dot.setAttribute("data-number", +`${i + 1}`);
+
+        dots.append(dot);
+    }
+
+    dots.addEventListener("click", (event) => {
+        if (event.target && event.target.classList.contains("dot")) {
+            slideIndex = event.target.getAttribute(["data-number"]);
+            showCurrentSlide(slideIndex);
+
+            //indent adjustment
+            offset = +width.slice(0, width.length - 2) * (slideIndex - 1);
+            //move
+            slidesField.style.transform = `translateX(-${offset}px)`;
+        }
     });
 });
