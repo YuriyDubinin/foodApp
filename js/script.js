@@ -344,6 +344,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    //displaying active indicator
+    function showActiveSliderIndicator() {
+        dots.forEach((dot, i) => {
+            dot.style.opacity = ".5";
+        });
+        dots[slideIndex - 1].style.opacity = "1";
+    }
+
     //execution
     showTotalSlides();
     showCurrentSlide(slideIndex);
@@ -365,6 +373,7 @@ document.addEventListener("DOMContentLoaded", () => {
     nextBtn.addEventListener("click", () => {
         slideIndex++;
         showCurrentSlide(slideIndex);
+        showActiveSliderIndicator();
 
         //check & changing indentation
         if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)) {
@@ -381,6 +390,7 @@ document.addEventListener("DOMContentLoaded", () => {
     prevBtn.addEventListener("click", () => {
         slideIndex--;
         showCurrentSlide(slideIndex);
+        showActiveSliderIndicator();
 
         //check & changing indentation
         if (offset == 0) {
@@ -437,11 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
             //movement
             slidesField.style.transform = `translateX(-${offset}px)`;
 
-            //displaying active indicator
-            dots.forEach((dot, i) => {
-                dot.style.opacity = ".5";
-            });
-            dots[slideIndex - 1].style.opacity = "1";
+            showActiveSliderIndicator();
         }
     });
 });
