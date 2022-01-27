@@ -336,7 +336,7 @@ document.addEventListener("DOMContentLoaded", () => {
             slideIndex = slides.length;
         }
 
-        //displaying
+        //correct display
         if (index < 10) {
             currentSlide.textContent = `0${slideIndex}`;
         } else {
@@ -410,7 +410,7 @@ document.addEventListener("DOMContentLoaded", () => {
     slider.style.position = `relative`;
 
     //creating indicators
-    const indicators = document.createElement("div");
+    const indicators = document.createElement("ol");
 
     indicators.classList.add("carousel-indicators");
 
@@ -418,10 +418,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //adding the required number of indicators
     for (let i = 0; i < slides.length; i++) {
-        const indicator = document.createElement("div");
+        const indicator = document.createElement("li");
 
         indicator.classList.add("dot");
-        indicator.setAttribute("data-number", +`${i + 1}`);
+        indicator.setAttribute("data-number", i + 1);
 
         indicators.append(indicator);
     }
