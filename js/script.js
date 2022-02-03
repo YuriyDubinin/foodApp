@@ -352,6 +352,10 @@ document.addEventListener("DOMContentLoaded", () => {
         dots[slideIndex - 1].style.opacity = "1";
     }
 
+    function removeNonDigits(str) {
+        return +str.replace(/\D/g, "");
+    }
+
     //execution
     showTotalSlides();
     showCurrentSlide(slideIndex);
@@ -376,12 +380,12 @@ document.addEventListener("DOMContentLoaded", () => {
         showActiveSliderIndicator();
 
         //check & changing indentation
-        if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)) {
+        if (offset == removeNonDigits(width) * (slides.length - 1)) {
             //transition from the last slide to the first
             offset = 0;
         } else {
             //normal movement
-            offset += +width.slice(0, width.length - 2);
+            offset += removeNonDigits(width);
         }
 
         //sliderField motion
@@ -395,10 +399,10 @@ document.addEventListener("DOMContentLoaded", () => {
         //check & changing indentation
         if (offset == 0) {
             //transition from the first slide to the last
-            offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+            offset = removeNonDigits(width) * (slides.length - 1);
         } else {
             //normal movement
-            offset -= +width.slice(0, width.length - 2);
+            offset -= removeNonDigits(width);
         }
 
         //sliderField motion
@@ -431,7 +435,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //setting the initial active slide
     dots[slideIndex - 1].style.opacity = "1"; //initial active indicator
 
-    offset = +width.slice(0, width.length - 2) * (slideIndex - 1); //indent adjustment
+    offset = removeNonDigits(width) * (slideIndex - 1); //indent adjustment
 
     slidesField.style.transform = `translateX(-${offset}px)`; //initial slide
 
@@ -442,7 +446,7 @@ document.addEventListener("DOMContentLoaded", () => {
             showCurrentSlide(slideIndex);
 
             //indent adjustment
-            offset = +width.slice(0, width.length - 2) * (slideIndex - 1);
+            offset = removeNonDigits(width) * (slideIndex - 1);
 
             //movement
             slidesField.style.transform = `translateX(-${offset}px)`;
