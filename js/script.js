@@ -1,7 +1,7 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
-    /* tabs */
+    /* Tabs */
     //declaration
     const tabs = document.querySelectorAll(".tabheader__item"),
         tabsContent = document.querySelectorAll(".tabcontent"),
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     hideTabContent();
     showTabContent();
 
-    /* timer */
+    /* Timer */
     //declaration
     const deadLine = "2022-04-01";
 
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //execution
     setClock(".timer", deadLine);
 
-    /* modal window */
+    /* Modal window */
     //declaration
     const contactBtns = document.querySelectorAll("[data-modal]"),
         modalWindow = document.querySelector(".modal"),
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("scroll", showModalByScroll);
 
-    /* cards, in this block we are uses classes */
+    /* Cards, in this block we are uses classes */
     //declaration
     class MenuCard {
         constructor(src, alt, title, description, price, parentSelector, ...classes) {
@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    /* forms */
+    /* Forms */
     //declaration
     const forms = document.querySelectorAll("form");
     const message = {
@@ -304,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
         bindPostData(item);
     });
 
-    /* slider */
+    /* Slider */
     // declaration
     let slideIndex = 1,
         offset = 0;
@@ -454,4 +454,79 @@ document.addEventListener("DOMContentLoaded", () => {
             showActiveSliderIndicator();
         }
     });
+
+    /* Calc */
+    //declaration
+    let sex = "female",
+        height,
+        weight,
+        age,
+        ratio = 1.375;
+
+    const result = document.querySelector(".calculating__result span");
+
+    function calcTotal() {
+        if (!sex || !height || !weight || !age || !ratio) {
+            result.textContent = "____";
+            return;
+        }
+
+        if (sex === "female") {
+            result.textContent = Math.round((447.6 + 9.2 * weight + 3.1 * height - (4.3 - age)) * ratio);
+        } else {
+            result.textContent = Math.round((88.36 + 13.4 * weight + 4.8 * height - (5.7 - age)) * ratio);
+        }
+    }
+
+    function getStaticInformation(parentSelector, activeClass) {
+        const elements = document.querySelectorAll(`${parentSelector} div`);
+
+        elements.forEach((elem) => {
+            elem.addEventListener("click", (event) => {
+                if (event.target.getAttribute("data-ratio")) {
+                    ratio = +event.target.getAttribute("data-ratio");
+                } else {
+                    sex = event.target.getAttribute("id");
+                }
+
+                elements.forEach((elem) => {
+                    elem.classList.remove(activeClass);
+                });
+
+                event.target.classList.add(activeClass);
+            });
+        });
+
+        calcTotal();
+    }
+
+    function getDynamicInformation(selector) {
+        const input = document.querySelector(selector);
+
+        input.addEventListener("input", () => {
+            switch (input.getAttribute("id")) {
+                case "height":
+                    height = +input.value;
+                    break;
+                case "weight":
+                    weight = +input.value;
+                    break;
+                case "age":
+                    age = +input.value;
+                    break;
+            }
+
+            calcTotal();
+        });
+    }
+
+    //execution
+    calcTotal();
+
+    getStaticInformation("#gender", "calculating__choose-item_active");
+    getStaticInformation(".calculating__choose_big", "calculating__choose-item_active");
+
+    getDynamicInformation("#height");
+    getDynamicInformation("#weight");
+    getDynamicInformation("#age");
 });

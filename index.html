@@ -155,8 +155,8 @@
                 <div class="calculating__field">
                     <div class="calculating__subtitle">Ваш пол</div>
                     <div class="calculating__choose" id="gender">
-                        <div class="calculating__choose-item calculating__choose-item_active">Женщина</div>
-                        <div class="calculating__choose-item">Мужчина</div>
+                        <div id="female" class="calculating__choose-item calculating__choose-item_active">Женщина</div>
+                        <div id="male" class="calculating__choose-item">Мужчина</div>
                     </div>
 
                     <div class="calculating__subtitle">Ваша конституция</div>
@@ -168,12 +168,16 @@
 
                     <div class="calculating__subtitle">Выберите вашу физическая активность</div>
                     <div class="calculating__choose calculating__choose_big">
-                        <div id="low" class="calculating__choose-item">Низкая активность</div>
-                        <div id="small" class="calculating__choose-item calculating__choose-item_active">
+                        <div id="low" data-ratio="1.2" class="calculating__choose-item">Низкая активность</div>
+                        <div
+                            id="small"
+                            data-ratio="1.375"
+                            class="calculating__choose-item calculating__choose-item_active"
+                        >
                             Невысокая активность
                         </div>
-                        <div id="medium" class="calculating__choose-item">Умеренная активность</div>
-                        <div id="high" class="calculating__choose-item">Высокая активность</div>
+                        <div id="medium" data-ratio="1.55" class="calculating__choose-item">Умеренная активность</div>
+                        <div id="high" data-ratio="1.725" class="calculating__choose-item">Высокая активность</div>
                     </div>
 
                     <div class="calculating__divider"></div>
