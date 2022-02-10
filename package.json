@@ -18,5 +18,9 @@
   "homepage": "https://github.com/YuriDubinin/foodApp#readme",
   "dependencies": {
     "json-server": "^0.17.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2"
   }
 }
