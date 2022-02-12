@@ -1,6 +1,4 @@
-function timer() {
-    const deadLine = "2022-04-01";
-
+function timer(id, deadline) {
     //add zero to number
     function getZero(num) {
         if (num >= 0 && num < 10) {
@@ -52,7 +50,7 @@ function timer() {
     }
 
     //execution
-    setClock(".timer", deadLine);
+    setClock(id, deadline);
 }
 
-module.exports = timer;
+export default timer;
