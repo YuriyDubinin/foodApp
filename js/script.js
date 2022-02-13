@@ -5,7 +5,7 @@ import cards from "./modules/cards";
 import forms from "./modules/forms";
 import slider from "./modules/slider";
 import calculator from "./modules/calculator";
-import openModalWinndow from "./modules/modal";
+import { openModalWinndow } from "./modules/modal";
 
 window.addEventListener("DOMContentLoaded", () => {
     const modalTimerId = setTimeout(() => openModalWinndow(".modal", modalTimerId), 50000);

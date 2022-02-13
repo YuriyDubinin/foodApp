@@ -1,26 +1,36 @@
 {
-  "name": "foodapp",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/YuriDubinin/foodApp.git"
-  },
-  "author": "Yura Dubinin",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/YuriDubinin/foodApp/issues"
-  },
-  "homepage": "https://github.com/YuriDubinin/foodApp#readme",
-  "dependencies": {
-    "json-server": "^0.17.0"
-  },
-  "devDependencies": {
-    "webpack": "^5.68.0",
-    "webpack-cli": "^4.9.2"
-  }
+    "name": "foodapp",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/YuriDubinin/foodApp.git"
+    },
+    "author": "Yura Dubinin",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/YuriDubinin/foodApp/issues"
+    },
+    "homepage": "https://github.com/YuriDubinin/foodApp#readme",
+    "browserslist": [
+        "> 1%",
+        "not dead"
+    ],
+    "dependencies": {
+        "@babel/polyfill": "^7.12.1",
+        "json-server": "^0.17.0"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.17.0",
+        "@babel/core": "^7.17.2",
+        "@babel/preset-env": "^7.16.11",
+        "babel-loader": "^8.2.3",
+        "core-js": "^3.21.0",
+        "webpack": "^5.68.0",
+        "webpack-cli": "^4.9.2"
+    }
 }
