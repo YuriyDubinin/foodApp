@@ -38,12 +38,17 @@ function timer(id, deadline) {
         function updateClock() {
             const t = getTimeRemaining(endtime);
 
-            days.innerHTML = getZero(t.days);
-            hours.innerHTML = getZero(t.hours);
-            minutes.innerHTML = getZero(t.minutes);
-            seconds.innerHTML = getZero(t.seconds);
+            days.textContent = getZero(t.days);
+            hours.textContent = getZero(t.hours);
+            minutes.textContent = getZero(t.minutes);
+            seconds.textContent = getZero(t.seconds);
 
             if (t.total <= 0) {
+                days.textContent = "00";
+                hours.textContent = "00";
+                minutes.textContent = "00";
+                seconds.textContent = "00";
+
                 clearInterval(timeInterval);
             }
         }

@@ -57,10 +57,6 @@ function slider({ container, slide, nextArrow, prevArrow, totalCounter, currentC
 
     slidesField.style.width = 100 * slides.length + `%`; //setting the width based on the number of slides
 
-    //line up slides, add smooth transition (added class to CSS)
-    // slidesField.style.display = "flex";
-    // slidesField.style.transition = "0.5s all";
-
     //set a clear witdth for each slides
     slides.forEach((slide) => {
         slide.style.width = width;

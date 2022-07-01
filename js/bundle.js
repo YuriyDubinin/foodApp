@@ -445,9 +445,6 @@ function slider(_ref) {
   slidesWrapper.style.overflow = "hidden"; //hiding everything outside slidesWrapper
 
   slidesField.style.width = 100 * slides.length + `%`; //setting the width based on the number of slides
-  //line up slides, add smooth transition (added class to CSS)
-  // slidesField.style.display = "flex";
-  // slidesField.style.transition = "0.5s all";
   //set a clear witdth for each slides
 
   slides.forEach(slide => {
@@ -620,12 +617,16 @@ function timer(id, deadline) {
 
     function updateClock() {
       const t = getTimeRemaining(endtime);
-      days.innerHTML = getZero(t.days);
-      hours.innerHTML = getZero(t.hours);
-      minutes.innerHTML = getZero(t.minutes);
-      seconds.innerHTML = getZero(t.seconds);
+      days.textContent = getZero(t.days);
+      hours.textContent = getZero(t.hours);
+      minutes.textContent = getZero(t.minutes);
+      seconds.textContent = getZero(t.seconds);
 
       if (t.total <= 0) {
+        days.textContent = "00";
+        hours.textContent = "00";
+        minutes.textContent = "00";
+        seconds.textContent = "00";
         clearInterval(timeInterval);
       }
     }
@@ -760,7 +761,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const modalTimerId = setTimeout(() => (0,_modules_modal__WEBPACK_IMPORTED_MODULE_1__.openModalWinndow)(".modal", modalTimerId), 50000);
   (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_0__["default"])(".tabheader__item", ".tabcontent", ".tabheader__items", "tabheader__item_active");
   (0,_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])("[data-modal]", ".modal", modalTimerId);
-  (0,_modules_timer__WEBPACK_IMPORTED_MODULE_2__["default"])(".timer", "2022-06-21");
+  (0,_modules_timer__WEBPACK_IMPORTED_MODULE_2__["default"])(".timer", "2022-12-21");
   (0,_modules_cards__WEBPACK_IMPORTED_MODULE_3__["default"])();
   (0,_modules_forms__WEBPACK_IMPORTED_MODULE_4__["default"])("form", modalTimerId);
   (0,_modules_calculator__WEBPACK_IMPORTED_MODULE_6__["default"])();
