@@ -17,7 +17,7 @@
 ## Setup
 
 ```bash
-$ git clone https://github.com/YuriDubinin/foodApp.git
+$ git clone https://github.com/YuriyDubinin/foodApp.git
 $ cd foodApp
 $ npm i
 $ npx json-server db.json
